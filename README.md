@@ -1,0 +1,2 @@
+# jd_subscribe_seckill
+针对js_seckill代码进行了整理
