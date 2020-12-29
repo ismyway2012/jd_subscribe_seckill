@@ -1,0 +1,25 @@
+# local env files
+*.iml
+
+.idea
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+test_module/*.jpg
+test_module/images/
+test_module/src_images/
+test_module/src_pdf/
+*.jpg
+*.pdf
+*.png
+*.pyc
+auto_gui/pyppeteer_suite/cookies.txt
+*.log
+cookies/
+qr_code.png
