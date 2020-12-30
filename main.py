@@ -1,6 +1,7 @@
 import sys
 from spiders.jd_order_requests import JdSubscribe
 from spiders.jd_seckill_requests import JdSeckill
+from spiders.jd_coupon_requests import JdCoupon
 
 if __name__ == '__main__':
     a = r"""
@@ -13,6 +14,7 @@ if __name__ == '__main__':
 功能列表：                                                                                
  1.预约商品
  2.秒杀抢购商品
+ 3.京东超级全城购，满199-198优惠券
     """
     print(a)
 
@@ -23,6 +25,9 @@ if __name__ == '__main__':
     elif choice_function == '2':
         jd_seckill = JdSeckill()
         jd_seckill.seckill_by_proc_pool()
+    elif choice_function == '3':
+        jd_coupon = JdCoupon()
+        jd_coupon.receive()
     else:
         print('没有此功能')
         sys.exit(1)
