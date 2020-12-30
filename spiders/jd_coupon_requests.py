@@ -95,6 +95,7 @@ class JdCoupon(object):
             'User-Agent': self.user_agent,
             'Referer': 'https://pro.jd.com/',
         }
+        # https://api.m.jd.com/client.action?functionId=newBabelAwardCollection&body=%7B%22activityId%22%3A%223S53g25ji4mzEGVoeRiXxpmpAYjs%22%2C%22scene%22%3A%221%22%2C%22args%22%3A%22key%3D3CF9A614611B32207E8BBC194F3E5B7738A155696C5E3F56E9E0E07235F17D90F303B26F9C35123E006713687B01391C_babel%2CroleId%3DA0BAF3B922198E20E8A068B1FFD943ED_babel%22%2C%22eid%22%3A%222LAFNHDGXK7DFUHSL7LM4ZJQYEH2HNFL6C4VKXRWHOQCHOF6QU5Z4OLVCZW2SVA7PO2JT5JFVY2GX2UVALF7FZ4MNQ%22%2C%22fp%22%3A%22e3e04bcb478bc50f19f40382fa45298f%22%2C%22pageClick%22%3A%22Babel_Coupon%22%2C%22mitemAddrId%22%3A%22%22%2C%22geo%22%3A%7B%22lng%22%3A%22%22%2C%22lat%22%3A%22%22%7D%7D&screen=750*1334&client=wh5&clientVersion=1.0.0&sid=&uuid=&area=&loginType=3&callback=jsonp1
         url = 'https://api.m.jd.com/client.action?functionId=newBabelAwardCollection&body=%7B%22activityId%22%3A%22' + activity_id + '%22%2C%22scene%22%3A%221%22%2C%22args%22%3A%22' + args + '%22%2C%22eid%22%3A' + eid + '%2C%22fp%22%3A' + fp + '%2C%22pageClick%22%3A%22Babel_Coupon%22%2C%22mitemAddrId%22%3A%22%22%2C%22geo%22%3A%7B%22lng%22%3A%22%22%2C%22lat%22%3A%22%22%7D%7D&screen=750*1334&client=wh5&clientVersion=1.0.0&sid=&uuid=&area=&loginType=3&callback=jsonp1'
         resp = self.session.get(url=url, params=None, headers=headers)
         print(resp.url)
