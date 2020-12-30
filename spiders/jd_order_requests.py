@@ -12,7 +12,7 @@ from timer import Timer
 from util import (
     parse_json,
     send_wechat,
-    wait_some_time
+    wait_some_time,
 )
 
 """京东抢购商品预约"""

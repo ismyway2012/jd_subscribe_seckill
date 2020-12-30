@@ -13,7 +13,7 @@ from timer import Timer
 from util import (
     parse_json,
     send_wechat,
-    wait_some_time
+    wait_some_time,
 )
 
 
@@ -75,7 +75,7 @@ class JdSeckill(object):
         self._seckill()
 
     @check_login
-    def seckill_by_proc_pool(self, work_count=5):
+    def seckill_by_proc_pool(self, work_count=8):
         """
         多进程进行抢购
         work_count：进程数量
@@ -102,7 +102,7 @@ class JdSeckill(object):
         """获取用户信息"""
         url = 'https://passport.jd.com/user/petName/getUserInfoForMiniJd.action'
         payload = {
-            'callback': 'jQuery'.format(random.randint(1000000, 9999999)),
+            'callback': 'jQuery{}'.format(random.randint(1000000, 9999999)),
             '_': str(int(time.time() * 1000)),
         }
         headers = {
