@@ -2,6 +2,8 @@ import functools
 import random
 import time
 
+from concurrent.futures import ProcessPoolExecutor
+
 from config import global_config
 from exception import SKException
 from jd_logger import logger
@@ -64,11 +66,13 @@ class JdCoupon(object):
         return new_func
 
     @check_login
-    def receive(self):
+    def receive(self, work_count=8):
         """
         领取优惠券，纯甄满199-198
         """
-        self._receive()
+        with ProcessPoolExecutor(work_count) as pool:
+            for i in range(work_count):
+                pool.submit(self._receive)
 
     def _receive(self):
         """
