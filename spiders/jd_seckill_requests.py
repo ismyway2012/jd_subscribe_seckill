@@ -84,6 +84,17 @@ class JdSeckill(object):
             for i in range(work_count):
                 pool.submit(self.seckill)
 
+    @check_login
+    def seckill_by_proc_pool_xiaomi(self, work_count=8):
+        """
+        多进程进行抢购
+        work_count：进程数量
+        """
+        self.sku_id = global_config.getRaw('config', 'xiaomi_sku_id')
+        with ProcessPoolExecutor(work_count) as pool:
+            for i in range(work_count):
+                pool.submit(self.seckill)
+
     def _seckill(self):
         """
         抢购
