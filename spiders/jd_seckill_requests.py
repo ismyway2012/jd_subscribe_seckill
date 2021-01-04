@@ -26,6 +26,8 @@ class JdSeckill(object):
 
         # 初始化信息
         self.sku_id = global_config.getRaw('config', 'sku_id')
+        self.sku_url = 'https://item.jd.com/{}.html'
+        self.marathon_url = 'marathon.jd.com'
         self.seckill_num = 2
         self.seckill_init_info = dict()
         self.seckill_url = dict()
@@ -137,7 +139,7 @@ class JdSeckill(object):
 
     def get_sku_title(self):
         """获取商品名称"""
-        url = 'https://item.jd.com/{}.html'.format(global_config.getRaw('config', 'sku_id'))
+        url = self.sku_url.format(global_config.getRaw('config', 'sku_id'))
         resp = self.session.get(url).content
         x_data = etree.HTML(resp)
         sku_title = x_data.xpath('/html/head/title/text()')
@@ -159,7 +161,7 @@ class JdSeckill(object):
         headers = {
             'User-Agent': self.user_agent,
             'Host': 'itemko.jd.com',
-            'Referer': 'https://item.jd.com/{}.html'.format(self.sku_id),
+            'Referer': self.sku_url.format(self.sku_id),
         }
         while True:
             resp = self.session.get(url=url, headers=headers, params=payload)
@@ -186,8 +188,8 @@ class JdSeckill(object):
         logger.info('访问商品的抢购连接...')
         headers = {
             'User-Agent': self.user_agent,
-            'Host': 'marathon.jd.com',
-            'Referer': 'https://item.jd.com/{}.html'.format(self.sku_id),
+            'Host': self.marathon_url,
+            'Referer': self.sku_url.format(self.sku_id),
         }
         self.session.get(
             url=self.seckill_url.get(self.sku_id),
@@ -206,7 +208,7 @@ class JdSeckill(object):
         }
         headers = {
             'User-Agent': self.user_agent,
-            'Host': 'marathon.jd.com',
+            'Host': self.marathon_url,
             'Referer': 'https://item.jd.com/{}.html'.format(self.sku_id),
         }
         self.session.get(url=url, params=payload, headers=headers, allow_redirects=False)
@@ -224,7 +226,7 @@ class JdSeckill(object):
         }
         headers = {
             'User-Agent': self.user_agent,
-            'Host': 'marathon.jd.com',
+            'Host': self.marathon_url,
         }
         resp = self.session.post(url=url, data=data, headers=headers)
 
@@ -232,7 +234,7 @@ class JdSeckill(object):
         try:
             resp_json = parse_json(resp.text)
         except Exception:
-            raise SKException('抢购失败，返回信息:{}'.format(resp.text[0: 128]))
+            raise SKException('抢购失败 _get_seckill_init_info ，返回信息:{}'.format(resp.text[0: 128]))
 
         return resp_json
 
@@ -302,7 +304,7 @@ class JdSeckill(object):
         logger.info('提交抢购订单...')
         headers = {
             'User-Agent': self.user_agent,
-            'Host': 'marathon.jd.com',
+            'Host': self.marathon_url,
             'Referer': 'https://marathon.jd.com/seckill/seckill.action?skuId={0}&num={1}&rid={2}'.format(
                 self.sku_id, self.seckill_num, int(time.time())),
         }
@@ -315,7 +317,7 @@ class JdSeckill(object):
         try:
             resp_json = parse_json(resp.text)
         except Exception as e:
-            logger.info('抢购失败，返回信息:{}'.format(resp.text[0: 128]))
+            logger.info('抢购失败 submit_seckill_order ，返回信息:{}'.format(resp.text[0: 128]))
             return False
         # 返回信息
         # 抢购失败：
