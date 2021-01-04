@@ -93,6 +93,7 @@ class JdSeckill(object):
         work_count：进程数量
         """
         self.sku_id = global_config.getRaw('config', 'xiaomi_sku_id')
+        self.seckill_num = 1
         with ProcessPoolExecutor(work_count) as pool:
             for i in range(work_count):
                 pool.submit(self.seckill)

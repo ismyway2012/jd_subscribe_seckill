@@ -12,10 +12,11 @@ if __name__ == '__main__':
 \________|/_______  /         \_______  /__|  \____ |\___  >__|            /_______  /\___  >\___  >__|_ \__|____/____/
                   \/                  \/           \/    \/                        \/     \/     \/     \/             
 功能列表：                                                                                
- 1.预约商品
+ 1.预约茅台
  2.秒杀茅台
  3.京东超级全城购，满199-198优惠券
- 4.秒杀小米11白8G-256
+ 4.预约小米11白8G-256
+ 5.秒杀小米11白8G-256
     """
     print(a)
 
@@ -30,6 +31,9 @@ if __name__ == '__main__':
         jd_coupon = JdCoupon()
         jd_coupon.receive()
     elif choice_function == '4':
+        jd_coupon = JdSubscribe()
+        jd_coupon.reserve_xiaomi()
+    elif choice_function == '5':
         jd_coupon = JdSeckill()
         jd_coupon.seckill_by_proc_pool_xiaomi()
     else:

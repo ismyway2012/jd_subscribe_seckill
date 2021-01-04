@@ -72,6 +72,14 @@ class JdSubscribe(object):
         预约
         """
         self._reserve()
+    
+    @check_login
+    def reserve_xiaomi(self):
+        """
+        预约小米
+        """
+        self.sku_id = global_config.getRaw('config', 'xiaomi_sku_id')
+        self._reserve()
 
     def _reserve(self):
         """
@@ -102,6 +110,7 @@ class JdSubscribe(object):
         }
         resp = self.session.get(url=url, params=payload, headers=headers)
         resp_json = parse_json(resp.text)
+        print('resp_json', resp_json)
         reserve_url = resp_json.get('url')
         self.timers.start()
         break_flag = False
@@ -146,7 +155,7 @@ class JdSubscribe(object):
 
     def get_sku_title(self):
         """获取商品名称"""
-        url = 'https://item.jd.com/{}.html'.format(global_config.getRaw('config', 'sku_id'))
+        url = 'https://item.jd.com/{}.html'.format(self.sku_id)
         resp = self.session.get(url).content
         x_data = etree.HTML(resp)
         sku_title = x_data.xpath('/html/head/title/text()')
