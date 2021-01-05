@@ -1,6 +1,7 @@
 import sys
 from spiders.jd_order_requests import JdSubscribe
 from spiders.jd_seckill_requests import JdSeckill
+from spiders.jd_seckill_xiaomi_requests import JdSeckillXiaomi
 from spiders.jd_coupon_requests import JdCoupon
 
 if __name__ == '__main__':
@@ -34,8 +35,8 @@ if __name__ == '__main__':
         jd_coupon = JdSubscribe()
         jd_coupon.reserve_xiaomi()
     elif choice_function == '5':
-        jd_coupon = JdSeckill()
-        jd_coupon.seckill_by_proc_pool_xiaomi()
+        jd_seckill_xiaomi = JdSeckillXiaomi()
+        jd_seckill_xiaomi.seckill_by_proc_pool_xiaomi()
     else:
         print('没有此功能')
         sys.exit(1)
