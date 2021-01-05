@@ -90,6 +90,9 @@ class JdSeckillXiaomi(object):
         """
         抢购
         """
+        logger.info('用户:{}'.format(self.get_username()))
+        logger.info('商品名称:{}'.format(self.get_sku_title()))
+
         while True:
             try:
                 self.request_seckill_url()
@@ -161,9 +164,7 @@ class JdSeckillXiaomi(object):
                 # https://divide.jd.com/user_routing?skuId=8654289&sn=c3f4ececd8461f0e4d7267e96a91e0e0&from=pc
                 router_url = 'https:' + resp_json.get('url')
                 # https://marathon.jd.com/captcha.html?skuId=8654289&sn=c3f4ececd8461f0e4d7267e96a91e0e0&from=pc
-                seckill_url = router_url.replace(
-                    'divide', 'marathon').replace(
-                    'user_routing', 'captcha.html')
+                seckill_url = router_url.replace('divide', 'marathon').replace('user_routing', 'captcha.html')
                 logger.info("抢购链接获取成功: %s", seckill_url)
                 return seckill_url
             else:
@@ -172,8 +173,6 @@ class JdSeckillXiaomi(object):
 
     def request_seckill_url(self):
         """访问商品的抢购链接（用于设置cookie等"""
-        logger.info('用户:{}'.format(self.get_username()))
-        logger.info('商品名称:{}'.format(self.get_sku_title()))
         self.timers.start()
         self.seckill_url[self.sku_id] = self.get_seckill_url()
         logger.info('访问商品的抢购连接...')

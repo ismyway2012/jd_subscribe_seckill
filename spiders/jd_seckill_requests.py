@@ -90,6 +90,9 @@ class JdSeckill(object):
         """
         抢购
         """
+        logger.info('用户:{}'.format(self.get_username()))
+        logger.info('商品名称:{}'.format(self.get_sku_title()))
+
         while True:
             try:
                 self.request_seckill_url()
@@ -170,8 +173,6 @@ class JdSeckill(object):
 
     def request_seckill_url(self):
         """访问商品的抢购链接（用于设置cookie等"""
-        logger.info('用户:{}'.format(self.get_username()))
-        logger.info('商品名称:{}'.format(self.get_sku_title()))
         self.timers.start()
         self.seckill_url[self.sku_id] = self.get_seckill_url()
         logger.info('访问商品的抢购连接...')
