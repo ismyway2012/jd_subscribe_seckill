@@ -32,8 +32,8 @@ if __name__ == '__main__':
         jd_coupon = JdCoupon()
         jd_coupon.receive()
     elif choice_function == '4':
-        jd_coupon = JdSubscribe()
-        jd_coupon.reserve_xiaomi()
+        jd_subscribe = JdSubscribe()
+        jd_subscribe.reserve_xiaomi()
     elif choice_function == '5':
         jd_seckill_xiaomi = JdSeckillXiaomi()
         jd_seckill_xiaomi.seckill_by_proc_pool_xiaomi()
