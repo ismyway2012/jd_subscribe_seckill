@@ -101,6 +101,8 @@ class JdSeckill(object):
                 start_flag = True
             else:
                 time.sleep(0.05)
+            if now_time.hour > 10 and now_time.minute > 3:
+                break
 
             if start_flag:
                 try:
