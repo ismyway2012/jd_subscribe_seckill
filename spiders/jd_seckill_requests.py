@@ -1,6 +1,7 @@
 import functools
 import random
 import time
+import datetime
 from concurrent.futures import ProcessPoolExecutor
 
 from lxml import etree
@@ -94,14 +95,27 @@ class JdSeckill(object):
         logger.info('商品名称:{}'.format(self.get_sku_title()))
 
         while True:
-            try:
-                self.request_seckill_url()
-                while True:
-                    self.request_seckill_checkout_page()
-                    self.submit_seckill_order()
-            except Exception as e:
-                logger.info('抢购发生异常，稍后继续执行！', e)
-            wait_some_time()
+            start_flag = False
+            now_time = datetime.datetime.now()
+            if now_time.hour == 9 and now_time.minute == 59 and now_time.second > 50:
+                start_flag = True
+            else:
+                time.sleep(0.05)
+
+            if start_flag:
+                try:
+                    self.request_seckill_url()
+                    while True:
+
+                        now_time = datetime.datetime.now()
+                        if now_time.hour > 10 and now_time.minute > 3:
+                            break
+
+                        self.request_seckill_checkout_page()
+                        self.submit_seckill_order()
+                except Exception as e:
+                    logger.info('抢购发生异常，稍后继续执行！', e)
+                wait_some_time()
 
     def get_username(self):
         """获取用户信息"""
